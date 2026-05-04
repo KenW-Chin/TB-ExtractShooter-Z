@@ -7,15 +7,34 @@ using namespace std;
 class Person{
     private:
         string name {};
+        int maxHealth {100};
         int health {};
+        bool isAlive {true};
+
     public:
     Person(string name){
         this->name = name;
     };
 
-    void setHealth(int health){
-        this->health = health;
+    bool isAlive() {return isAlive;}
+
+    int getHealth(){
+        return this->health;
+    }
+    
+    void takeDamage(int damage){
+        if(getHealth() < damage || getHealth() == damage){
+            isAlive = false;
+        }
+        else{
+            setHealth(getHealth() - damage);
+        }
+    };
+
+    void heal(int health){
+        setHealth(getHealth() + health);
     }
 
     virtual void actions() = 0;
+    void update();
 };
